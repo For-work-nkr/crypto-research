@@ -1,0 +1,77 @@
+digraph "Cryptocurrency Price Prediction System Architecture" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Cryptocurrency Price Prediction System Architecture" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	"71f2965165ef4c9cbf5d82ff1660c17b" [label="Financial Institutions
+Mobile Money Platforms" height=2.3 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/client/users.png" shape=none]
+	subgraph "cluster_Data Collection Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Data Collection Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"5f052a5158d345b7a42312d6edca7c70" [label="CoinGecko Collector" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		"5e2a39db723740a08fc8b16ceaee8319" [label="Binance Collector" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		"9aff12b3497b4d21ad0a9c401968139e" [label="CoinMarketCap Collector" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+	}
+	subgraph "cluster_Data Storage Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Data Storage Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"36c0eb6449b04a37b664b8609ce5794a" [label="Raw Data Storage" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/generic/storage/storage.png" shape=none]
+		"54d676a4bd63435aacf047ca9995a505" [label="Time Series DB" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/database/influxdb.png" shape=none]
+		c18922946da64587a2d770474159308d [label="Feature Store" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/database/postgresql.png" shape=none]
+	}
+	subgraph "cluster_Data Processing Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Data Processing Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		subgraph "cluster_ETL Pipeline" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="ETL Pipeline" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			bd985b84eca64417bfa4bd2c440c0ccb [label="Data Cleaning" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+			"690675cc727448d9bbc05c63a541a09e" [label="Feature Engineering" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+			"30b0338ce4ad4e2c9e7e9ea80084753d" [label="Data Transformation" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		}
+		bca6c484485f414abadac276af06fcd2 [label="Data Validation" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+	}
+	subgraph "cluster_Model Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Model Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		subgraph "cluster_Model Training" {
+			graph [bgcolor="#EBF3E7" fontname="Sans-Serif" fontsize=12 label="Model Training" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+			"83ab0357110e4fa09b249e251e1af093" [label="Bi-LSTM Model" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+			"5890f24c226a4a84a7351a1ced21fbb5" [label="Prophet Model" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+			aa27f03734b64ac0b56109e43ab5bdad [label="XGBoost Model" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+			"84c848b77f2b4af7bd2659dbcf5b2499" [label="ARIMA Model" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		}
+		"36b85cb6ea0d4e0abab113124c739425" [label="Model Ensemble" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		"7b329b1ea6594f6a84e2887b98778e31" [label="Model Evaluation" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+	}
+	subgraph "cluster_Prediction Service" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Prediction Service" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"22e1f52f796b4538bbc8f268f15cf082" [label="Prediction API" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		f0d34f8b2c0d4c3da77e3a36cf599d38 [label="Prediction Cache" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/onprem/database/mongodb.png" shape=none]
+	}
+	subgraph "cluster_Visualization Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Visualization Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		f0519caebf944b4daf56968cedf77278 [label="Interactive Dashboard" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+		"9308440d57aa46d7a1c4e91a3b27948f" [label="Automated Reports" height=1.9 image="/usr/local/lib/python3.10/dist-packages/resources/programming/language/python.png" shape=none]
+	}
+	"71f2965165ef4c9cbf5d82ff1660c17b" -> f0519caebf944b4daf56968cedf77278 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"71f2965165ef4c9cbf5d82ff1660c17b" -> "22e1f52f796b4538bbc8f268f15cf082" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"5f052a5158d345b7a42312d6edca7c70" -> "36c0eb6449b04a37b664b8609ce5794a" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"5e2a39db723740a08fc8b16ceaee8319" -> "36c0eb6449b04a37b664b8609ce5794a" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"9aff12b3497b4d21ad0a9c401968139e" -> "36c0eb6449b04a37b664b8609ce5794a" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"36c0eb6449b04a37b664b8609ce5794a" -> bd985b84eca64417bfa4bd2c440c0ccb [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bd985b84eca64417bfa4bd2c440c0ccb -> "690675cc727448d9bbc05c63a541a09e" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"690675cc727448d9bbc05c63a541a09e" -> "30b0338ce4ad4e2c9e7e9ea80084753d" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"30b0338ce4ad4e2c9e7e9ea80084753d" -> c18922946da64587a2d770474159308d [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"30b0338ce4ad4e2c9e7e9ea80084753d" -> "54d676a4bd63435aacf047ca9995a505" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	c18922946da64587a2d770474159308d -> bca6c484485f414abadac276af06fcd2 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"54d676a4bd63435aacf047ca9995a505" -> bca6c484485f414abadac276af06fcd2 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bca6c484485f414abadac276af06fcd2 -> "83ab0357110e4fa09b249e251e1af093" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bca6c484485f414abadac276af06fcd2 -> "5890f24c226a4a84a7351a1ced21fbb5" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bca6c484485f414abadac276af06fcd2 -> aa27f03734b64ac0b56109e43ab5bdad [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	bca6c484485f414abadac276af06fcd2 -> "84c848b77f2b4af7bd2659dbcf5b2499" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"83ab0357110e4fa09b249e251e1af093" -> "36b85cb6ea0d4e0abab113124c739425" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"5890f24c226a4a84a7351a1ced21fbb5" -> "36b85cb6ea0d4e0abab113124c739425" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	aa27f03734b64ac0b56109e43ab5bdad -> "36b85cb6ea0d4e0abab113124c739425" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"84c848b77f2b4af7bd2659dbcf5b2499" -> "36b85cb6ea0d4e0abab113124c739425" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"36b85cb6ea0d4e0abab113124c739425" -> "7b329b1ea6594f6a84e2887b98778e31" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"7b329b1ea6594f6a84e2887b98778e31" -> "22e1f52f796b4538bbc8f268f15cf082" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"22e1f52f796b4538bbc8f268f15cf082" -> f0d34f8b2c0d4c3da77e3a36cf599d38 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f0d34f8b2c0d4c3da77e3a36cf599d38 -> f0519caebf944b4daf56968cedf77278 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"7b329b1ea6594f6a84e2887b98778e31" -> "9308440d57aa46d7a1c4e91a3b27948f" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"9308440d57aa46d7a1c4e91a3b27948f" -> "71f2965165ef4c9cbf5d82ff1660c17b" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
