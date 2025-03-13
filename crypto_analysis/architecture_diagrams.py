@@ -16,6 +16,8 @@ from diagrams.generic.storage import Storage
 from diagrams.custom import Custom
 
 # Create the output directory if it doesn't exist
+# Create the output directory if it doesn't exist
+
 import os
 os.makedirs("/home/ubuntu/crypto_analysis/diagrams", exist_ok=True)
 
