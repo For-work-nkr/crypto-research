@@ -1,0 +1,145 @@
+# Configuration file for Cryptocurrency Price Prediction System
+# This is an example configuration file. Copy to config.yaml and update with your API keys.
+
+# Data Sources Configuration
+data_sources:
+  coingecko:
+    base_url: "https://api.coingecko.com/api/v3"
+    api_key: "YOUR_API_KEY"  # Optional for basic usage
+    rate_limit: 50  # Calls per minute
+    
+  binance:
+    base_url: "https://api.binance.com/api/v3"
+    api_key: "YOUR_API_KEY"
+    api_secret: "YOUR_API_SECRET"
+    rate_limit: 1200  # Calls per minute
+    
+  coinmarketcap:
+    base_url: "https://pro-api.coinmarketcap.com/v1"
+    api_key: "YOUR_API_KEY"
+    rate_limit: 333  # Calls per day
+
+# Cryptocurrency Configuration
+cryptocurrencies:
+  - symbol: "BTC"
+    name: "Bitcoin"
+    priority: 1
+  - symbol: "ETH"
+    name: "Ethereum"
+    priority: 2
+  - symbol: "BNB"
+    name: "Binance Coin"
+    priority: 3
+  - symbol: "SOL"
+    name: "Solana"
+    priority: 4
+  - symbol: "ADA"
+    name: "Cardano"
+    priority: 5
+
+# Data Collection Configuration
+data_collection:
+  historical:
+    timeframe: "1d"  # 1d, 1h, etc.
+    lookback_period: 730  # Days of historical data to collect
+    update_frequency: 86400  # Seconds (daily)
+  
+  recent:
+    timeframe: "1h"
+    lookback_period: 30  # Days
+    update_frequency: 3600  # Seconds (hourly)
+  
+  realtime:
+    timeframe: "1m"
+    update_frequency: 60  # Seconds (every minute)
+
+# Feature Engineering Configuration
+features:
+  technical_indicators:
+    - name: "SMA"
+      parameters: [7, 14, 30, 50, 200]
+    - name: "EMA"
+      parameters: [7, 14, 30, 50, 200]
+    - name: "RSI"
+      parameters: [14]
+    - name: "MACD"
+      parameters: [12, 26, 9]
+    - name: "Bollinger"
+      parameters: [20, 2]
+  
+  temporal_features:
+    - "day_of_week"
+    - "hour_of_day"
+    - "month"
+    - "is_weekend"
+    - "quarter"
+
+# Model Configuration
+models:
+  bilstm:
+    layers: 2
+    units: 128
+    dropout: 0.2
+    sequence_length: 60
+    batch_size: 64
+    epochs: 100
+    early_stopping_patience: 10
+    
+  prophet:
+    changepoint_prior_scale: 0.05
+    seasonality_prior_scale: 10
+    seasonality_mode: "multiplicative"
+    
+  xgboost:
+    max_depth: 6
+    learning_rate: 0.1
+    n_estimators: 100
+    objective: "reg:squarederror"
+    
+  arima:
+    p: 5
+    d: 1
+    q: 0
+    
+  ensemble:
+    weights:
+      bilstm: 0.5
+      prophet: 0.2
+      xgboost: 0.2
+      arima: 0.1
+
+# Prediction Configuration
+prediction:
+  horizons:
+    - 1  # 1 day ahead
+    - 7  # 1 week ahead
+    - 30  # 1 month ahead
+  confidence_interval: 0.95
+  update_frequency: 3600  # Seconds (hourly)
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  rate_limit: 100  # Requests per minute
+
+# Visualization Configuration
+visualization:
+  dashboard:
+    host: "0.0.0.0"
+    port: 8050
+    theme: "dark"
+    refresh_interval: 300  # Seconds (5 minutes)
+  
+  charts:
+    default_timeframe: "1M"  # 1D, 1W, 1M, 3M, 6M, 1Y
+    available_timeframes: ["1D", "1W", "1M", "3M", "6M", "1Y"]
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/crypto_prediction.log"
+  max_size: 10485760  # 10 MB
+  backup_count: 5
