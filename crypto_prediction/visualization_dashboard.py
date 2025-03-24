@@ -9,7 +9,7 @@ import argparse
 
 # Import project modules
 from crypto_prediction import load_config, setup_logging
-from crypto_prediction.visualization.dashboard import run_dashboard
+from visualization.dashboard import run_dashboard
 
 def run_visualization_dashboard(config_path=None, host=None, port=None, debug=None):
     """Run the visualization dashboard."""
@@ -26,6 +26,12 @@ def run_visualization_dashboard(config_path=None, host=None, port=None, debug=No
     debug = debug if debug is not None else dashboard_config.get('debug', False)
     
     logger.info(f"Starting visualization dashboard on {host}:{port}")
+    
+    # Use the logger
+    logger.info("Application started")
+    logger.debug("Debug message")
+    logger.warning("Warning message")
+    logger.error("Error message")
     
     # Run dashboard
     run_dashboard(host, port, debug)

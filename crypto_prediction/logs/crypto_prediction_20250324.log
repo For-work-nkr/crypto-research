@@ -1,0 +1,20 @@
+2025-03-24 11:48:58,441 - crypto_prediction - INFO - Starting visualization dashboard on 0.0.0.0:8050
+2025-03-24 11:48:58,441 - crypto_prediction - INFO - Starting visualization dashboard on 0.0.0.0:8050
+2025-03-24 11:48:58,441 - crypto_prediction - INFO - Application started
+2025-03-24 11:48:58,441 - crypto_prediction - INFO - Application started
+2025-03-24 11:48:58,441 - crypto_prediction - WARNING - Warning message
+2025-03-24 11:48:58,441 - crypto_prediction - WARNING - Warning message
+2025-03-24 11:48:58,441 - crypto_prediction - ERROR - Error message
+2025-03-24 11:48:58,441 - crypto_prediction - ERROR - Error message
+2025-03-24 11:50:18,143 - crypto_prediction - INFO - Starting visualization dashboard on 0.0.0.0:8050
+2025-03-24 11:50:18,143 - crypto_prediction - INFO - Starting visualization dashboard on 0.0.0.0:8050
+2025-03-24 11:50:18,143 - crypto_prediction - INFO - Application started
+2025-03-24 11:50:18,143 - crypto_prediction - INFO - Application started
+2025-03-24 11:50:18,143 - crypto_prediction - WARNING - Warning message
+2025-03-24 11:50:18,143 - crypto_prediction - WARNING - Warning message
+2025-03-24 11:50:18,143 - crypto_prediction - ERROR - Error message
+2025-03-24 11:50:18,143 - crypto_prediction - ERROR - Error message
+2025-03-24 11:50:38,659 - crypto_prediction - ERROR - Error fetching cryptocurrencies: HTTPConnectionPool(host='0.0.0.0', port=8000): Max retries exceeded with url: /cryptocurrencies (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014E8011E310>: Failed to establish a new connection: [WinError 10049] The requested address is not valid in its context'))
+2025-03-24 11:50:38,659 - crypto_prediction - ERROR - Error fetching cryptocurrencies: HTTPConnectionPool(host='0.0.0.0', port=8000): Max retries exceeded with url: /cryptocurrencies (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014E8011E310>: Failed to establish a new connection: [WinError 10049] The requested address is not valid in its context'))
+2025-03-24 11:50:38,675 - crypto_prediction - ERROR - Error fetching models: HTTPConnectionPool(host='0.0.0.0', port=8000): Max retries exceeded with url: /models (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014E80345350>: Failed to establish a new connection: [WinError 10049] The requested address is not valid in its context'))
+2025-03-24 11:50:38,675 - crypto_prediction - ERROR - Error fetching models: HTTPConnectionPool(host='0.0.0.0', port=8000): Max retries exceeded with url: /models (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014E80345350>: Failed to establish a new connection: [WinError 10049] The requested address is not valid in its context'))

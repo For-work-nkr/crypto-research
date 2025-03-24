@@ -134,7 +134,7 @@ class BaseScraper(ABC):
         for record in self.data:
             record["_metadata"] = metadata
     
-    def run(self, output_path: Optional[str] = None, format: str = 'json', add_metadata: bool = True) -> List[Dict]:
+    def run(self, output_path: Optional[str] = None, format: str = 'json', add_metadata: bool = True, **kwargs) -> List[Dict]:
         """
         Run the scraper and optionally save the results.
         
@@ -142,13 +142,14 @@ class BaseScraper(ABC):
             output_path: Path to save the data (optional)
             format: Format to save the data (json, csv)
             add_metadata: Whether to add metadata to the scraped data
+            **kwargs: Additional arguments to pass to the scrape method
             
         Returns:
             List of dictionaries containing scraped data
         """
         try:
             logger.info(f"Starting {self.__class__.__name__}")
-            self.data = self.scrape()
+            self.data = self.scrape(**kwargs)  # Pass through any additional arguments
             
             if add_metadata:
                 self.add_metadata()

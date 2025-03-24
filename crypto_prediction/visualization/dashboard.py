@@ -661,7 +661,7 @@ app.index_string = '''
 
 def run_dashboard(host='0.0.0.0', port=8050, debug=False):
     """Run the Dash dashboard."""
-    app.run_server(host=host, port=port, debug=debug)
+    app.run(host=host, port=port, debug=debug)
 
 if __name__ == "__main__":
     # Get dashboard configuration

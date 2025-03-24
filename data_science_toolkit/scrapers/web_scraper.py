@@ -240,8 +240,9 @@ def main():
     # Initialize scraper
     scraper = WebScraper(args.config)
     
-    # Run scraper
+    # Run scraper with the provided URL
     scraper.run(
+        url=args.url, 
         output_path=args.output,
         format=args.format,
         add_metadata=not args.no_metadata
