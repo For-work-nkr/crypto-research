@@ -6,6 +6,11 @@ This script starts the Dash web application for visualizing predictions and mode
 import os
 import logging
 import argparse
+import sys
+from pathlib import Path
+
+# Add the project root directory to the Python path
+sys.path.append(str(Path(__file__).parent.parent))
 
 # Import project modules
 from crypto_prediction import load_config, setup_logging

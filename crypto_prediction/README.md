@@ -39,7 +39,7 @@ The system consists of the following components:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/crypto-prediction.git
+git clone https://github.com/For-work-nkr/crypto-prediction.git
 cd crypto-prediction
 ```
 

@@ -6,3 +6,10 @@
 .nvm
 .pki
 .secrets
+crypto_prediction/__pycache__/
+crypto_prediction/data/__pycache__/
+crypto_prediction/data/test/
+crypto_prediction/models/__pycache__/
+crypto_prediction/preprocessing/__pycache__/
+crypto_prediction/setup.py
+crypto_prediction/tests/__pycache__/

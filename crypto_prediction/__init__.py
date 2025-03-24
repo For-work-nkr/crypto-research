@@ -1,64 +1,117 @@
 """
-Main initialization file for the cryptocurrency prediction project.
-This file sets up the project environment and imports.
+Crypto Prediction Package
+A package for cryptocurrency price prediction and analysis.
 """
 
 import os
 import sys
 import logging
 import yaml
+import json
 from pathlib import Path
+from logging.handlers import RotatingFileHandler
+from datetime import datetime
+from typing import Dict, Any
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.absolute()
 sys.path.append(str(PROJECT_ROOT))
 
-# Setup logging
-def setup_logging(config=None):
-    """Set up logging configuration based on config or defaults."""
-    if config is None:
-        log_level = "INFO"
-        log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        log_file = "logs/crypto_prediction.log"
-    else:
-        log_level = config.get("logging", {}).get("level", "INFO")
-        log_format = config.get("logging", {}).get("format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        log_file = config.get("logging", {}).get("file", "logs/crypto_prediction.log")
+def load_config(config_path: str = None) -> Dict[str, Any]:
+    """
+    Load configuration from a YAML or JSON file.
     
-    # Create logs directory if it doesn't exist
-    log_dir = os.path.dirname(log_file)
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    
-    # Configure logging
-    logging.basicConfig(
-        level=getattr(logging, log_level),
-        format=log_format,
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler()
-        ]
-    )
-    
-    return logging.getLogger(__name__)
-
-# Load configuration
-def load_config(config_path="config.yaml"):
-    """Load configuration from YAML file."""
-    config_file = os.path.join(PROJECT_ROOT, config_path)
-    
-    if not os.path.exists(config_file):
-        example_config = os.path.join(PROJECT_ROOT, "config.example.yaml")
-        if os.path.exists(example_config):
-            logging.warning(f"Config file {config_file} not found. Please copy from {example_config} and update with your settings.")
+    Args:
+        config_path (str, optional): Path to the configuration file.
+            If None, looks for 'config.yaml' or 'config.json' in the current directory.
+            
+    Returns:
+        dict: Configuration dictionary
+        
+    Raises:
+        FileNotFoundError: If no configuration file is found
+        ValueError: If the configuration file format is not supported
+    """
+    if config_path is None:
+        # Look for config files in the current directory
+        if os.path.exists('config.yaml'):
+            config_path = 'config.yaml'
+        elif os.path.exists('config.json'):
+            config_path = 'config.json'
         else:
-            logging.error(f"Neither config file {config_file} nor example config found.")
-        return {}
+            raise FileNotFoundError(
+                "No configuration file found. Please provide a config.yaml or config.json file."
+            )
     
-    with open(config_file, 'r') as f:
-        config = yaml.safe_load(f)
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Configuration file not found: {config_path}")
+    
+    # Load configuration based on file extension
+    file_ext = os.path.splitext(config_path)[1].lower()
+    with open(config_path, 'r') as f:
+        if file_ext == '.yaml' or file_ext == '.yml':
+            config = yaml.safe_load(f)
+        elif file_ext == '.json':
+            config = json.load(f)
+        else:
+            raise ValueError(
+                f"Unsupported configuration file format: {file_ext}. "
+                "Please use YAML (.yaml, .yml) or JSON (.json) format."
+            )
     
     return config
+
+def setup_logging(config: Dict[str, Any]) -> logging.Logger:
+    """
+    Set up logging configuration based on the provided config dictionary.
+    
+    Args:
+        config (dict): Configuration dictionary containing logging settings
+        
+    Returns:
+        logging.Logger: Configured logger instance
+    """
+    # Get logging configuration from config
+    log_config = config.get('logging', {})
+    log_dir = log_config.get('log_dir', 'logs')
+    log_level = log_config.get('level', 'INFO')
+    max_bytes = log_config.get('max_bytes', 10 * 1024 * 1024)  # 10MB default
+    backup_count = log_config.get('backup_count', 5)
+    
+    # Create logs directory if it doesn't exist
+    os.makedirs(log_dir, exist_ok=True)
+    
+    # Create logger
+    logger = logging.getLogger('crypto_prediction')
+    logger.setLevel(getattr(logging, log_level.upper()))
+    
+    # Create formatters
+    file_formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    console_formatter = logging.Formatter(
+        '%(levelname)s: %(message)s'
+    )
+    
+    # File handler
+    log_file = os.path.join(
+        log_dir,
+        f'crypto_prediction_{datetime.now().strftime("%Y%m%d")}.log'
+    )
+    file_handler = RotatingFileHandler(
+        log_file,
+        maxBytes=max_bytes,
+        backupCount=backup_count
+    )
+    file_handler.setFormatter(file_formatter)
+    logger.addHandler(file_handler)
+    
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(console_formatter)
+    logger.addHandler(console_handler)
+    
+    return logger
 
 # Initialize the project
 def init_project():
@@ -77,3 +130,5 @@ def init_project():
 if __name__ == "__main__":
     config, logger = init_project()
     logger.info("Project initialization complete")
+
+__version__ = '0.1.0'

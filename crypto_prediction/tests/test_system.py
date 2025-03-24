@@ -19,9 +19,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import project modules
 from crypto_prediction import load_config, setup_logging
-from crypto_prediction.data.data_collection import DataCollector
-from crypto_prediction.preprocessing.data_preprocessing import DataPreprocessor
-from crypto_prediction.models.model_training import (
+from data.data_collection import DataCollector
+from preprocessing.data_preprocessing import DataPreprocessor
+from models.model_training import (
     BiLSTMModel, ProphetModel, XGBoostModel, ARIMAModel, EnsembleModel
 )
 

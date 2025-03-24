@@ -18,6 +18,7 @@ import json
 from datetime import datetime, timedelta
 
 # Import project modules
+# for packaging the project
 from crypto_prediction import load_config, setup_logging
 
 # Load configuration
